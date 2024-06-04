@@ -1,8 +1,11 @@
+//https://www.youtube.com/watch?v=WtkKwO1viI8&t=165s
+
 import express from 'express';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import { default: axios} from 'axios';
 
 
 async function startServer() {
@@ -21,9 +24,7 @@ async function startServer() {
         `,
         resolvers: {
             Query: {
-                getTodos: () => [
-                    { id: '1', title: 'something something', completed: false },
-                ],
+                getTodos: async ()=> await axios.get('https://jsonplaceholder.typicode.com/todos/')
             },
         },
     });
